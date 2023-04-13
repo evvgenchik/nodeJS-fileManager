@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-filemanager",
+  "version": "1.0.0",
+  "description": "filemanager",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evvgenchik/nodeJS-fileManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evvgenchik/nodeJS-fileManager/issues"
+  },
+  "homepage": "https://github.com/evvgenchik/nodeJS-fileManager#readme",
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
+}
