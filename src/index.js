@@ -1,5 +1,6 @@
 import os from 'os';
-import initCLI from './services/initCLI.service';
+import { initCLI } from './services/initCLI.service.js';
+import { chdir } from 'process';
 
 export const FILE_DICTIONARY = {
   username: 'New user',
@@ -8,6 +9,7 @@ export const FILE_DICTIONARY = {
 
 const appLaunch = () => {
   try {
+    chdir(FILE_DICTIONARY.currentDirectory);
     getUsername(process.argv);
     greeting(FILE_DICTIONARY.username);
   } catch (e) {
@@ -34,13 +36,21 @@ const greeting = (name) => {
 };
 
 const showCurrentDirectory = () => {
-  console.log(FILE_DICTIONARY.currentDirectory);
+  console.log(`You are currently in ${process.cwd()}`);
 };
 
 const listenerCLI = () => {
   process.stdin.on('data', (data) => {
-    initCLI[data];
+    const [fn, ...rest] = data.toString().split(' ');
 
+    const command = initCLI[fn.trim()];
+
+    if (!command) {
+      console.log('Invalid input. Please add correct command');
+      return;
+    }
+
+    command()(rest);
     showCurrentDirectory();
   });
 
