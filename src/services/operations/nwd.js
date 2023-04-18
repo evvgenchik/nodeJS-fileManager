@@ -1,15 +1,8 @@
 import { getPath } from '../../helpers/getPath.js';
 import path from 'path';
+import fs from 'fs';
 
 const up = () => {
-  // const { currentDirectory } = FILE_DICTIONARY;
-  // const arrCurrentDirectory = currentDirectory.split(path.sep);
-  // const newDirectory =
-  //   arrCurrentDirectory.length > 1
-  //     ? arrCurrentDirectory.slice(0, -1)
-  //     : arrCurrentDirectory;
-  //FILE_DICTIONARY.currentDirectory = newDirectory.join(path.sep);
-
   process.chdir('../');
 };
 
@@ -25,8 +18,35 @@ const cd = (args) => {
     console.log(`Error: ${e.message}`);
   }
 };
-//const { currentDirectory } = FILE_DICTIONARY;
 
-// const resultPath = path.resolve(currentDirectory, pathToFile);
+const ls = async () => {
+  const currentDir = process.cwd();
 
-export { up, cd };
+  try {
+    const files = await fs.promises.readdir(currentDir, {
+      withFileTypes: true,
+    });
+    const sortedFiles = sortFiles(files);
+    const arrFinalObj = sortedFiles.map((el) => new ListFileObj(el));
+    console.table(arrFinalObj);
+  } catch (err) {
+    console.log(`Erorr: ${err.message}`);
+  }
+};
+
+const sortFiles = (files) => {
+  return files.sort(({ name: a, name: b }) => {
+    if (path.extname(a)) return -1;
+    if (a > b) return -1;
+    else return 1;
+  });
+};
+
+class ListFileObj {
+  constructor({ name }) {
+    this.name = name;
+    this.type = path.extname(name) ? 'file' : 'directory';
+  }
+}
+
+export { up, cd, ls };
