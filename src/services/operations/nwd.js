@@ -7,31 +7,24 @@ const up = () => {
 };
 
 const cd = (args) => {
-  try {
-    const pathToFileStr = args.join(' ').trim('');
-    const pathToFileArr = pathToFileStr.split(path.sep);
+  const pathToFileStr = args.join(' ').trim('');
+  const pathToFileArr = pathToFileStr.split(path.sep);
 
-    const pathToFile = getPath(pathToFileArr);
+  const pathToFile = getPath(pathToFileArr);
 
-    process.chdir(pathToFile);
-  } catch (e) {
-    console.log(`Error: ${e.message}`);
-  }
+  process.chdir(pathToFile);
 };
 
 const ls = async () => {
   const currentDir = process.cwd();
 
-  try {
-    const files = await fs.promises.readdir(currentDir, {
-      withFileTypes: true,
-    });
-    const sortedFiles = sortFiles(files);
-    const arrFinalObj = sortedFiles.map((el) => new ListFileObj(el));
-    console.table(arrFinalObj);
-  } catch (err) {
-    console.log(`Erorr: ${err.message}`);
-  }
+  const files = await fs.promises.readdir(currentDir, {
+    withFileTypes: true,
+  });
+
+  const sortedFiles = sortFiles(files);
+  const arrFinalObj = sortedFiles.map((el) => new ListFileObj(el));
+  console.table(arrFinalObj);
 };
 
 const sortFiles = (files) => {

@@ -41,16 +41,20 @@ const showCurrentDirectory = () => {
 
 const listenerCLI = () => {
   process.stdin.on('data', (data) => {
-    const [fn, ...rest] = data.toString().split(' ');
+    try {
+      const [fn, ...rest] = data.toString().split(' ');
 
-    const command = initCLI[fn.trim()];
+      const command = initCLI[fn.trim()];
 
-    if (!command) {
-      console.log('Invalid input. Please add correct command');
-      return;
+      if (!command) {
+        throw new Error('Please add correct command');
+      }
+
+      command()(rest);
+    } catch (err) {
+      console.log(`Invalid input.${err.message}`);
     }
 
-    command()(rest);
     showCurrentDirectory();
   });
 
