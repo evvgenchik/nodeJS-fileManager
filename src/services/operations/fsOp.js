@@ -41,6 +41,14 @@ const cp = async (args) => {
     });
 };
 
-const mv = async (args) => {};
+const rm = async (pathFile) => {
+  await fs.promises.unlink(pathFile);
+};
 
-export { cat, add, rn, cp, mv };
+const mv = async (args) => {
+  const [pathFile] = args.split(' ');
+  await cp(args);
+  await rm(pathFile);
+};
+
+export { cat, add, rn, cp, mv, rm };

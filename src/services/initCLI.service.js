@@ -10,6 +10,7 @@ const initCLI = {
   rn: () => fsOp.rn,
   cp: () => fsOp.cp,
   mv: () => fsOp.mv,
+  rm: () => fsOp.rm,
 };
 
 export { initCLI };

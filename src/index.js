@@ -51,13 +51,12 @@ const listenerCLI = () => {
         throw new Error('Please add correct command');
       }
 
-      const commandFn = command();
-      commandFn(rest)?.catch(errorHandler);
+      const commandFn = await command();
+      await commandFn(rest)?.catch(errorHandler);
+      showCurrentDirectory();
     } catch (err) {
       errorHandler(err);
     }
-
-    showCurrentDirectory();
   });
 
   process.on('SIGINT', () => process.exit());
