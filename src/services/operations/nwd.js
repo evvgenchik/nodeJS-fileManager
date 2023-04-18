@@ -6,12 +6,9 @@ const up = () => {
   process.chdir('../');
 };
 
-const cd = (args) => {
-  const pathToFileStr = args.join(' ').trim('');
-  const pathToFileArr = pathToFileStr.split(path.sep);
-
-  const pathToFile = getPath(pathToFileArr);
-
+const cd = (pathDir) => {
+  const pathToDirArr = pathDir.split(path.sep);
+  const pathToFile = getPath(pathToDirArr);
   process.chdir(pathToFile);
 };
 
@@ -21,7 +18,6 @@ const ls = async () => {
   const files = await fs.promises.readdir(currentDir, {
     withFileTypes: true,
   });
-
   const sortedFiles = sortFiles(files);
   const arrFinalObj = sortedFiles.map((el) => new ListFileObj(el));
   console.table(arrFinalObj);

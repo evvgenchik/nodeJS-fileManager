@@ -6,6 +6,10 @@ const initCLI = {
   cd: () => nwd.cd,
   ls: () => nwd.ls,
   cat: () => fsOp.cat,
+  add: () => fsOp.add,
+  rn: () => fsOp.rn,
+  cp: () => fsOp.cp,
+  mv: () => fsOp.mv,
 };
 
 export { initCLI };

@@ -1,6 +1,8 @@
 import os from 'os';
 import { initCLI } from './services/initCLI.service.js';
 import { chdir } from 'process';
+import { argsConverter } from './helpers/getPath.js';
+import errorHandler from './helpers/errorHandler.js';
 
 export const FILE_DICTIONARY = {
   username: 'New user',
@@ -40,19 +42,19 @@ const showCurrentDirectory = () => {
 };
 
 const listenerCLI = () => {
-  process.stdin.on('data', (data) => {
+  process.stdin.on('data', async (data) => {
     try {
-      const [fn, ...rest] = data.toString().split(' ');
-
-      const command = initCLI[fn.trim()];
+      const { fn, rest } = argsConverter(data);
+      const command = initCLI[fn];
 
       if (!command) {
         throw new Error('Please add correct command');
       }
 
-      command()(rest);
+      const commandFn = command();
+      commandFn(rest)?.catch(errorHandler);
     } catch (err) {
-      console.log(`Invalid input.${err.message}`);
+      errorHandler(err);
     }
 
     showCurrentDirectory();

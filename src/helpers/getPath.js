@@ -14,4 +14,11 @@ const getPath = (pathToFileArr) => {
   return validPath.join(path.sep);
 };
 
-export { getPath };
+const argsConverter = (args) => {
+  const [comand, ...restArgs] = args.toString().split(' ');
+  const rest = restArgs.join(' ').trim('');
+  const fn = comand.trim();
+  return { fn, rest };
+};
+
+export { getPath, argsConverter };
