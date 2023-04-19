@@ -1,5 +1,6 @@
 import * as nwd from './operations/nwd.js';
 import * as fsOp from './operations/fsOp.js';
+import osDistributor from './operations/osOp.js';
 
 const initCLI = {
   up: () => nwd.up,
@@ -11,6 +12,7 @@ const initCLI = {
   cp: () => fsOp.cp,
   mv: () => fsOp.mv,
   rm: () => fsOp.rm,
+  os: () => osDistributor,
 };
 
 export { initCLI };

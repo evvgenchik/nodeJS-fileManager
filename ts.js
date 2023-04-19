@@ -1,3 +1,2 @@
-const regexp = /^'[\w\s]+'$|^"[\w\s]+"$/;
-
-console.log(regexp.test('"sda sa sd'));
+import os from 'os';
+console.log(os.eol);
