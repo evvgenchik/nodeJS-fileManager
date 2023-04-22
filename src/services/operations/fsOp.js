@@ -1,9 +1,12 @@
 import fs from 'fs';
+import path from 'path';
 import { pipeline } from 'node:stream/promises';
 import errorHandler from '../../helpers/errorHandler.js';
+import { getPath } from '../../helpers/argsHandler.js';
 
 const cat = async (filename) => {
-  const readStream = fs.createReadStream(filename, 'utf-8');
+  const pathToFile = getPath(filename.split(path.sep));
+  const readStream = fs.createReadStream(pathToFile, 'utf-8');
 
   readStream.pipe(process.stdout);
   readStream.on('end', () => console.log());

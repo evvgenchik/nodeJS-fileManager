@@ -1,16 +1,17 @@
 import path from 'path';
 
 const getPath = (pathToFileArr) => {
-  const regexp = /^'[\w\s]+'$|^"[\w\s]+"$/;
+  const regexp = /^'.+'$|^".+"$/;
 
   const validPath = pathToFileArr.map((el) => {
     if (el.includes(' ')) {
       if (!regexp.test(el)) {
+        console.log(el);
+        console.log(regexp.test(el));
         throw new Error('invalid path');
       } else return el.replace(/['"]/g, '');
     } else return el;
   });
-  console.log(validPath);
   return validPath.join(path.sep);
 };
 
