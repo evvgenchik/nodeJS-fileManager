@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { getPath } from '../../helpers/getPath.js';
+import { getPath } from '../../helpers/argsHandler.js';
 import { isFile, isDirectory } from '../../helpers/checkers.js';
 
 const up = () => {

@@ -7,10 +7,10 @@ const getPath = (pathToFileArr) => {
     if (el.includes(' ')) {
       if (!regexp.test(el)) {
         throw new Error('invalid path');
-      } else return el.replace(/^['"]\w+$['"]/, '');
+      } else return el.replace(/['"]/g, '');
     } else return el;
   });
-
+  console.log(validPath);
   return validPath.join(path.sep);
 };
 

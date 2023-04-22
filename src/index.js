@@ -1,7 +1,7 @@
 import os from 'os';
 import { initCLI } from './services/initCLI.service.js';
 import { chdir } from 'process';
-import { argsConverter } from './helpers/getPath.js';
+import { argsConverter } from './helpers/argsHandler.js';
 import errorHandler, { errorHandlerInit } from './helpers/errorHandler.js';
 
 export const FILE_DICTIONARY = {
