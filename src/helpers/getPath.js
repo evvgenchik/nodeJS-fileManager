@@ -15,8 +15,8 @@ const getPath = (pathToFileArr) => {
 };
 
 const argsConverter = (args) => {
-  const [comand, ...restArgs] = args.toString().split(' ');
-  const rest = restArgs.join(' ').trim('');
+  const [comand, ...restArgs] = args.toString().trim().split(' ');
+  const rest = restArgs.join(' ').trim();
   const fn = comand.trim();
   return { fn, rest };
 };

@@ -5,11 +5,8 @@ import errorHandler from '../../helpers/errorHandler.js';
 const cat = async (filename) => {
   const readStream = fs.createReadStream(filename, 'utf-8');
 
-  // readStream.on('data', (chunk) => {
-  //   console.log(chunk);
-  // });
-
-  await pipeline(readStream, process.stdout.write);
+  readStream.pipe(process.stdout);
+  readStream.on('end', () => console.log());
 
   readStream.on('error', function (err) {
     console.log(`Invalid input ${err.message}`);

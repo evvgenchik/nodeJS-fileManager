@@ -3,7 +3,7 @@ import os from 'os';
 const osDistributor = (args) => {
   try {
     const command = args.slice(2);
-    console.log(osOps[command]());
+    console.log(`${command}: ${osOps[command]()}`);
   } catch (err) {
     throw new Error('Command not found');
   }

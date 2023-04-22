@@ -1,6 +1,7 @@
-import { getPath } from '../../helpers/getPath.js';
 import path from 'path';
 import fs from 'fs';
+import { getPath } from '../../helpers/getPath.js';
+import { isFile, isDirectory } from '../../helpers/checkers.js';
 
 const up = () => {
   process.chdir('../');
@@ -24,26 +25,22 @@ const ls = async () => {
 };
 
 const sortFiles = (files) => {
-  return files.sort(({ name: a, name: b }) => {
-    // fs.stat('./filename.txt', (err, stats) => {
-    //   if (err) throw new Error(err);
+  const foldersArr = files.filter((el) => isDirectory(el.name)).sort();
+  const restArr = files
+    .filter((el) => !isDirectory(el.name))
+    .sort((a, b) => (isFile(a.name) ? 1 : -1));
 
-    //   if (stats.isDirectory()) return 1;
-    //   if (stats.isDirectory()) return -1;
-    //   else {
-    //     console.log('fs.Stats does not ' + 'describe a file system directory');
-    //   }
-    // });
-    if (a < b) return 1;
-    if (a > b) return -1;
-    else return 1;
-  });
+  return foldersArr.concat(restArr);
 };
 
 class ListFileObj {
   constructor({ name }) {
     this.name = name;
-    this.type = path.extname(name) ? 'file' : 'directory';
+    this.type = isFile(name)
+      ? 'file'
+      : isDirectory(name)
+      ? 'directory'
+      : 'other';
   }
 }
 
