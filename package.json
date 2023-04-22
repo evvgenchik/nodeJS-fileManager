@@ -4,8 +4,8 @@
   "description": "filemanager",
   "type": "module",
   "scripts": {
-    "start": "nodemon  src/index.js",
-    "dev": "nodemon  src/index.js -- --username=EVGEN",
+    "start": "node src/index.js",
+    "dev": "nodemon  src/index.js -- --username=Name",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -25,7 +25,16 @@ const ls = async () => {
 
 const sortFiles = (files) => {
   return files.sort(({ name: a, name: b }) => {
-    if (path.extname(a)) return -1;
+    // fs.stat('./filename.txt', (err, stats) => {
+    //   if (err) throw new Error(err);
+
+    //   if (stats.isDirectory()) return 1;
+    //   if (stats.isDirectory()) return -1;
+    //   else {
+    //     console.log('fs.Stats does not ' + 'describe a file system directory');
+    //   }
+    // });
+    if (a < b) return 1;
     if (a > b) return -1;
     else return 1;
   });

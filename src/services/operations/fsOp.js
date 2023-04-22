@@ -1,12 +1,15 @@
 import fs from 'fs';
+import { pipeline } from 'node:stream/promises';
 import errorHandler from '../../helpers/errorHandler.js';
 
-const cat = (filename) => {
+const cat = async (filename) => {
   const readStream = fs.createReadStream(filename, 'utf-8');
 
-  readStream.on('data', (chunk) => {
-    console.log(chunk);
-  });
+  // readStream.on('data', (chunk) => {
+  //   console.log(chunk);
+  // });
+
+  await pipeline(readStream, process.stdout.write);
 
   readStream.on('error', function (err) {
     console.log(`Invalid input ${err.message}`);

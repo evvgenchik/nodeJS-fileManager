@@ -2,7 +2,7 @@ import os from 'os';
 import { initCLI } from './services/initCLI.service.js';
 import { chdir } from 'process';
 import { argsConverter } from './helpers/getPath.js';
-import errorHandler from './helpers/errorHandler.js';
+import errorHandler, { errorHandlerInit } from './helpers/errorHandler.js';
 
 export const FILE_DICTIONARY = {
   username: 'New user',
@@ -14,8 +14,9 @@ const appLaunch = () => {
     chdir(FILE_DICTIONARY.currentDirectory);
     getUsername(process.argv);
     greeting(FILE_DICTIONARY.username);
+    showCurrentDirectory();
   } catch (e) {
-    console.log(e.message);
+    errorHandlerInit(e);
   }
   listenerCLI();
 };
@@ -26,7 +27,7 @@ const getUsername = (args) => {
 
   if (!username) {
     throw new Error(
-      'Please add correct username. Here the format "--username=your_username"'
+      `Please add correct username. Here the format "--username=your_username". Now your name is defined by default like "${FILE_DICTIONARY.username}"`
     );
   }
 
@@ -52,7 +53,8 @@ const listenerCLI = () => {
       }
 
       const commandFn = await command();
-      await commandFn(rest)?.catch(errorHandler);
+      const res = await commandFn(rest)?.catch(errorHandler);
+
       showCurrentDirectory();
     } catch (err) {
       errorHandler(err);
