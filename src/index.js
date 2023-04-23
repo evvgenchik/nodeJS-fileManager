@@ -52,10 +52,12 @@ const listenerCLI = () => {
         throw new Error('Please add correct command');
       }
 
-      const commandFn = await command();
-      const res = await commandFn(rest)?.catch(errorHandler);
+      const commandExecuter = async () => {
+        const commandFn = await command();
+        await commandFn(rest)?.catch(errorHandler);
+      };
 
-      showCurrentDirectory();
+      commandExecuter().then(() => showCurrentDirectory());
     } catch (err) {
       errorHandler(err);
     }
