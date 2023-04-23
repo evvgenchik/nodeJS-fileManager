@@ -1,7 +1,7 @@
 import { createBrotliCompress, createBrotliDecompress } from 'zlib';
 import { pipeline } from 'stream';
 import { createReadStream, createWriteStream } from 'fs';
-import errorHandler from '../../helpers/errorHandler.js';
+import errorHandler, { successHandler } from '../../helpers/customLogs.js';
 
 const compress = (action) => {
   return (args) => {

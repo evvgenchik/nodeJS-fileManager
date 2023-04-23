@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { pipeline } from 'node:stream/promises';
-import errorHandler from '../../helpers/errorHandler.js';
+import errorHandler, { successHandler } from '../../helpers/customLogs.js';
 import { getPath } from '../../helpers/argsHandler.js';
 import customWritable from '../../helpers/customStrem.js';
 
@@ -33,7 +33,7 @@ const cp = async (args) => {
   await pipeline(readStream, writeStream);
 
   console.log(
-    `You have successfully created a ${pathFile} copy. The new file name is ${pathNewDirec}.`
+    `You have created a ${pathFile} copy. The new file name is ${pathNewDirec}.`
   );
 };
 

@@ -2,7 +2,10 @@ import os from 'os';
 import { initCLI } from './services/initCLI.service.js';
 import { chdir } from 'process';
 import { argsConverter } from './helpers/argsHandler.js';
-import errorHandler, { errorHandlerInit } from './helpers/errorHandler.js';
+import errorHandler, {
+  errorHandlerInit,
+  successHandler,
+} from './helpers/customLogs.js';
 
 export const FILE_DICTIONARY = {
   username: 'New user',
@@ -42,7 +45,7 @@ const showCurrentDirectory = () => {
   console.log(`You are currently in ${process.cwd()}`);
 };
 
-const listenerCLI = () => {
+const listenerCLI = async () => {
   process.stdin.on('data', async (data) => {
     try {
       const { fn, rest } = argsConverter(data);
@@ -52,12 +55,11 @@ const listenerCLI = () => {
         throw new Error('Please add correct command');
       }
 
-      const commandExecuter = async () => {
-        const commandFn = await command();
-        await commandFn(rest)?.catch(errorHandler);
-      };
+      const commandFn = await command();
+      await commandFn(rest)?.catch(errorHandler);
 
-      commandExecuter().then(() => showCurrentDirectory());
+      successHandler(fn);
+      showCurrentDirectory();
     } catch (err) {
       errorHandler(err);
     }

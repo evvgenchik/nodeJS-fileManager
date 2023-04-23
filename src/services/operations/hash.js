@@ -1,6 +1,6 @@
 import fs from 'fs';
 import crypto from 'node:crypto';
-import errorHandler from '../../helpers/errorHandler.js';
+import errorHandler, { successHandler } from '../../helpers/customLogs.js';
 import customWritable from '../../helpers/customStrem.js';
 import { pipeline } from 'stream/promises';
 import { Transform } from 'stream';
